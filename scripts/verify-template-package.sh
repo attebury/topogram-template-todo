@@ -4,7 +4,7 @@ set -euo pipefail
 ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 WORK_ROOT="$ROOT_DIR/.tmp/template-package"
 NPM_CACHE_DIR="$ROOT_DIR/.tmp/npm-cache"
-CLI_PACKAGE_SPEC="${TOPOGRAM_CLI_PACKAGE_SPEC:-@attebury/topogram@0.2.9}"
+CLI_PACKAGE_SPEC="${TOPOGRAM_CLI_PACKAGE_SPEC:-@attebury/topogram@0.2.10}"
 
 mkdir -p "$WORK_ROOT" "$NPM_CACHE_DIR"
 export npm_config_cache="$NPM_CACHE_DIR"
@@ -42,6 +42,12 @@ if [[ ! -x "$TOPOGRAM_BIN" ]]; then
   echo "Expected topogram binary was not installed: $TOPOGRAM_BIN" >&2
   exit 1
 fi
+
+echo "Checking template conformance..."
+(
+  cd "$CONSUMER_DIR"
+  "$TOPOGRAM_BIN" template check "$TEMPLATE_TARBALL"
+)
 
 echo "Creating a starter from the packed template..."
 (
