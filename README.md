@@ -22,12 +22,12 @@ Use it as trusted code from the `@attebury` package scope.
 npm run pack:check
 ```
 
-This packs the template, creates a disposable starter with `topogram new --template <tarball>`, installs the starter, runs `npm run check`, runs `npm run generate`, and verifies the generated app sentinel.
+This runs reusable template conformance with `topogram template check`, packs the template, creates a disposable starter with `topogram new --template <tarball>`, installs the starter, runs `npm run check`, runs `npm run generate`, and verifies the generated app sentinel.
 
-By default the smoke test installs `@attebury/topogram@0.2.10`. Override it with:
+By default the smoke test installs `@attebury/topogram@0.2.11`. Override it with:
 
 ```bash
-TOPOGRAM_CLI_PACKAGE_SPEC=/path/to/attebury-topogram-0.2.10.tgz npm run pack:check
+TOPOGRAM_CLI_PACKAGE_SPEC=/path/to/attebury-topogram-0.2.11.tgz npm run pack:check
 ```
 
 ## Release
