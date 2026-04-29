@@ -1,6 +1,6 @@
 {
   "name": "@attebury/topogram-template-todo",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Topogram template pack for the generated Todo demo app.",
   "private": false,
   "license": "UNLICENSED",
@@ -16,6 +16,8 @@
     "registry": "https://npm.pkg.github.com"
   },
   "scripts": {
-    "pack:check": "npm pack --dry-run"
+    "pack:check": "bash ./scripts/verify-template-package.sh",
+    "release:prepare": "bash ./scripts/prepare-release.sh",
+    "release:check": "bash ./scripts/check-release-version.sh"
   }
 }
