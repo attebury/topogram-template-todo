@@ -91,11 +91,14 @@ export function renderTodoRuntimeCheckCases() {
       result.resources.jobId = responseBody.job_id;
     } else if (definition.id === "download_task_export") {
       assertCondition(state.exportJob?.job_id, "download task export requires a previously created export job");
-      const { contract, response } = await requestContract(definition.capabilityId, {
-        pathParams: {
-          job_id: state.exportJob.job_id
-        }
-      });
+      const contract = contractFor(definition.capabilityId);
+      const requestHeaders = new Headers();
+      if ((contract.endpoint.authz || []).length > 0 && authToken()) {
+        requestHeaders.set("Authorization", \`Bearer \${authToken()}\`);
+      }
+      const response = await fetchWithStackHint(buildUrl(apiBase(), contract.endpoint.path, {
+        job_id: state.exportJob.job_id
+      }), { method: contract.endpoint.method, headers: requestHeaders }, "api service");
       const responseBuffer = await response.arrayBuffer();
       assertCondition(response.status === contract.endpoint.successStatus, \`download task export expected \${contract.endpoint.successStatus}, got \${response.status}\`);
       assertCondition(response.headers.get("content-type")?.includes("application/zip"), "download task export did not return zip content");
