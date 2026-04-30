@@ -35,10 +35,10 @@ npm run pack:check
 
 This runs reusable template conformance with `topogram template check`, packs the template, creates a disposable starter with `topogram new --template <tarball>`, installs the starter, runs `npm run check`, runs `npm run generate`, and verifies the generated app sentinel.
 
-By default the smoke test installs `@attebury/topogram@0.2.35`. Override it with:
+By default the smoke test installs `@attebury/topogram@0.2.36`. Override it with:
 
 ```bash
-TOPOGRAM_CLI_PACKAGE_SPEC=/path/to/attebury-topogram-0.2.35.tgz npm run pack:check
+TOPOGRAM_CLI_PACKAGE_SPEC=/path/to/attebury-topogram-0.2.36.tgz npm run pack:check
 ```
 
 ## Release
