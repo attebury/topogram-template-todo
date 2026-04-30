@@ -44,10 +44,10 @@ runs `npm run check`, runs `npm run generate`, and verifies the generated app se
 test intentionally uses the packed tarball directly; consumer-facing creation
 is verified in `topogram-demo-todo` through the `todo` catalog alias.
 
-By default the smoke test installs `@attebury/topogram@0.2.49`. Override it with:
+By default the smoke test installs `@attebury/topogram@0.2.50`. Override it with:
 
 ```bash
-TOPOGRAM_CLI_PACKAGE_SPEC=/path/to/attebury-topogram-0.2.49.tgz npm run pack:check
+TOPOGRAM_CLI_PACKAGE_SPEC=/path/to/attebury-topogram-0.2.50.tgz npm run pack:check
 ```
 
 ## Release
