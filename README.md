@@ -1,17 +1,20 @@
 # Topogram Todo Template
 
-Private Topogram template pack for the generated Todo demo app.
+Topogram template package for the generated Todo starter app.
 
 ## Usage
 
 ```bash
-topogram new ./todo-demo --template @attebury/topogram-template-todo
+topogram new ./todo-demo --template todo --catalog github:attebury/topograms/topograms.catalog.json
 cd ./todo-demo
 npm install
 npm run check
 npm run generate
 npm run verify
 ```
+
+The public start path is the `todo` catalog alias. The catalog resolves that
+alias to the current `@attebury/topogram-template-todo` package version.
 
 This template includes executable implementation provider JavaScript under `implementation/`.
 Use it as trusted code from the `@attebury` package scope.
@@ -33,7 +36,12 @@ still verify user-scoped behavior with the public demo auth environment.
 npm run pack:check
 ```
 
-This runs reusable template conformance with `topogram template check`, packs the template, creates a disposable starter with `topogram new --template <tarball>`, installs the starter, runs `npm run check`, runs `npm run generate`, and verifies the generated app sentinel.
+This runs reusable template conformance with `topogram template check`, packs
+the template, creates a disposable starter with `topogram new --template
+<tarball>`, installs the starter, runs `npm run check`, runs `npm run
+generate`, and verifies the generated app sentinel. This package-level smoke
+test intentionally uses the packed tarball directly; consumer-facing creation
+is verified in `topogram-demo-todo` through the `todo` catalog alias.
 
 By default the smoke test installs `@attebury/topogram@0.2.42`. Override it with:
 
