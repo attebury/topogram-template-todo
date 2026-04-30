@@ -60,7 +60,7 @@ export const TODO_RUNTIME_CHECKS = {
         kind: "api_contract",
         capabilityId: "cap_get_task",
         pathParams: {
-          task_id: "$env:TOPOGRAM_DEMO_TASK_ID"
+          task_id: "$env:TOPOGRAM_DEMO_PRIMARY_ID"
         },
         expectShape: "task_detail",
         mandatory: true,
