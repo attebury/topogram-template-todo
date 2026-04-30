@@ -4,7 +4,11 @@ set -euo pipefail
 ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 WORK_ROOT="$ROOT_DIR/.tmp/template-package"
 NPM_CACHE_DIR="$ROOT_DIR/.tmp/npm-cache"
-CLI_PACKAGE_SPEC="${TOPOGRAM_CLI_PACKAGE_SPEC:-@attebury/topogram@0.2.42}"
+CLI_PACKAGE_SPEC="${TOPOGRAM_CLI_PACKAGE_SPEC:-@attebury/topogram@0.2.43}"
+STARTER_CLI_PACKAGE_SPEC="$CLI_PACKAGE_SPEC"
+if [[ "$STARTER_CLI_PACKAGE_SPEC" == @attebury/topogram@* ]]; then
+  STARTER_CLI_PACKAGE_SPEC="${STARTER_CLI_PACKAGE_SPEC#@attebury/topogram@}"
+fi
 
 mkdir -p "$WORK_ROOT" "$NPM_CACHE_DIR"
 export npm_config_cache="$NPM_CACHE_DIR"
@@ -52,7 +56,7 @@ echo "Checking template conformance..."
 echo "Creating a starter from the packed template..."
 (
   cd "$CONSUMER_DIR"
-  TOPOGRAM_CLI_PACKAGE_SPEC="$CLI_PACKAGE_SPEC" "$TOPOGRAM_BIN" new ./starter --template "$TEMPLATE_TARBALL"
+  TOPOGRAM_CLI_PACKAGE_SPEC="$STARTER_CLI_PACKAGE_SPEC" "$TOPOGRAM_BIN" new ./starter --template "$TEMPLATE_TARBALL"
 )
 
 STARTER_DIR="$CONSUMER_DIR/starter"
