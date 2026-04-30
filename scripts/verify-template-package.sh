@@ -4,7 +4,7 @@ set -euo pipefail
 ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 WORK_ROOT="$ROOT_DIR/.tmp/template-package"
 NPM_CACHE_DIR="$ROOT_DIR/.tmp/npm-cache"
-CLI_PACKAGE_SPEC="${TOPOGRAM_CLI_PACKAGE_SPEC:-@attebury/topogram@0.2.50}"
+CLI_PACKAGE_SPEC="${TOPOGRAM_CLI_PACKAGE_SPEC:-@attebury/topogram@0.2.51}"
 STARTER_CLI_PACKAGE_SPEC="$CLI_PACKAGE_SPEC"
 if [[ "$STARTER_CLI_PACKAGE_SPEC" == @attebury/topogram@* ]]; then
   STARTER_CLI_PACKAGE_SPEC="${STARTER_CLI_PACKAGE_SPEC#@attebury/topogram@}"
@@ -71,6 +71,7 @@ npm --prefix "$STARTER_DIR" install >/dev/null
 echo "Checking and generating the starter..."
 npm --prefix "$STARTER_DIR" run doctor
 npm --prefix "$STARTER_DIR" run source:status
+npm --prefix "$STARTER_DIR" run template:detach:dry-run
 npm --prefix "$STARTER_DIR" run check
 npm --prefix "$STARTER_DIR" run generate
 
