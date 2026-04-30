@@ -36,7 +36,10 @@ TOPOGRAM_DEMO_CONTAINER_ID=${TODO_BACKEND_REFERENCE.demo.projectId}`
     listPath: "/tasks",
     createPayload: {
       title: "Smoke Test Task",
-      containerField: "project_id"
+      containerField: "project_id",
+      extraFields: {
+        owner_id: "__DEMO_USER_ID__"
+      }
     }
   },
   runtimeCheck: {
