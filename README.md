@@ -52,7 +52,7 @@ By default the smoke test installs the `@attebury/topogram` version pinned in
 `topogram-cli.version`. Override it with:
 
 ```bash
-TOPOGRAM_CLI_PACKAGE_SPEC=/path/to/attebury-topogram-0.3.1.tgz npm run pack:check
+TOPOGRAM_CLI_PACKAGE_SPEC=/path/to/attebury-topogram-0.3.2.tgz npm run pack:check
 ```
 
 ## Release
