@@ -4,7 +4,8 @@ set -euo pipefail
 ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 WORK_ROOT="$ROOT_DIR/.tmp/template-package"
 NPM_CACHE_DIR="$ROOT_DIR/.tmp/npm-cache"
-CLI_PACKAGE_SPEC="${TOPOGRAM_CLI_PACKAGE_SPEC:-@attebury/topogram@0.2.61}"
+DEFAULT_CLI_VERSION="$(cat "$ROOT_DIR/topogram-cli.version")"
+CLI_PACKAGE_SPEC="${TOPOGRAM_CLI_PACKAGE_SPEC:-@attebury/topogram@$DEFAULT_CLI_VERSION}"
 STARTER_CLI_PACKAGE_SPEC="$CLI_PACKAGE_SPEC"
 if [[ "$STARTER_CLI_PACKAGE_SPEC" == @attebury/topogram@* ]]; then
   STARTER_CLI_PACKAGE_SPEC="${STARTER_CLI_PACKAGE_SPEC#@attebury/topogram@}"
