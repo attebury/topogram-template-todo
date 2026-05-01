@@ -4,7 +4,7 @@ set -euo pipefail
 ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 WORK_ROOT="$ROOT_DIR/.tmp/template-package"
 NPM_CACHE_DIR="$ROOT_DIR/.tmp/npm-cache"
-CLI_PACKAGE_SPEC="${TOPOGRAM_CLI_PACKAGE_SPEC:-@attebury/topogram@0.2.58}"
+CLI_PACKAGE_SPEC="${TOPOGRAM_CLI_PACKAGE_SPEC:-@attebury/topogram@0.2.59}"
 STARTER_CLI_PACKAGE_SPEC="$CLI_PACKAGE_SPEC"
 if [[ "$STARTER_CLI_PACKAGE_SPEC" == @attebury/topogram@* ]]; then
   STARTER_CLI_PACKAGE_SPEC="${STARTER_CLI_PACKAGE_SPEC#@attebury/topogram@}"
@@ -46,6 +46,26 @@ if [[ ! -x "$TOPOGRAM_BIN" ]]; then
   echo "Expected topogram binary was not installed: $TOPOGRAM_BIN" >&2
   exit 1
 fi
+VERSION_JSON="$("$TOPOGRAM_BIN" version --json)"
+node --input-type=module - "$VERSION_JSON" "$CLI_PACKAGE_SPEC" "${EXPECTED_TOPOGRAM_CLI_VERSION:-}" <<'NODE'
+const payload = JSON.parse(process.argv[2]);
+const packageSpec = process.argv[3];
+const explicitExpected = process.argv[4] || "";
+const inferred = packageSpec.startsWith("@attebury/topogram@")
+  ? packageSpec.slice("@attebury/topogram@".length)
+  : "";
+const expected = explicitExpected || (/^\d+\.\d+\.\d+/.test(inferred) ? inferred : "");
+if (payload.packageName !== "@attebury/topogram") {
+  throw new Error(`Expected @attebury/topogram, got ${payload.packageName}`);
+}
+if (expected && payload.version !== expected) {
+  throw new Error(`Expected Topogram CLI ${expected}, got ${payload.version}`);
+}
+if (!payload.executablePath || !payload.nodeVersion) {
+  throw new Error("Expected executablePath and nodeVersion in topogram version output.");
+}
+console.log(`Using Topogram CLI ${payload.version} from ${payload.executablePath}`);
+NODE
 
 echo "Checking template conformance..."
 (
