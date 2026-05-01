@@ -1,14 +1,14 @@
 # Topogram Todo Template
 
-Topogram template package for the generated Todo starter app.
+Topogram template package for starting a generated Todo app.
 
 ## Usage
 
 ```bash
 topogram template list
 topogram catalog show todo
-topogram new ./todo-demo --template todo --catalog github:attebury/topograms/topograms.catalog.json
-cd ./todo-demo
+topogram new ./todo-app --template todo --catalog github:attebury/topograms/topograms.catalog.json
+cd ./todo-app
 npm install
 npm run doctor
 npm run check
@@ -33,7 +33,7 @@ engine tests.
 The full generated runtime check exercises bearer-demo auth and lifecycle
 behavior. Manager/admin endpoints such as export read/download/delete require
 `TOPOGRAM_AUTH_ROLES=manager` and `TOPOGRAM_AUTH_ADMIN=true`; web-facing checks
-still verify user-scoped behavior with the public demo auth environment.
+still verify user-scoped behavior with the sample auth environment.
 
 ## Verification
 
