@@ -16,6 +16,7 @@
     "registry": "https://npm.pkg.github.com"
   },
   "scripts": {
+    "catalog:update": "node ./scripts/update-catalog-version.mjs",
     "pack:check": "bash ./scripts/verify-template-package.sh",
     "release:prepare": "bash ./scripts/prepare-release.sh",
     "release:check": "bash ./scripts/check-release-version.sh"

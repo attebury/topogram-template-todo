@@ -64,3 +64,19 @@ npm run pack:check
 ```
 
 Commit the updated package metadata, then publish with the `Publish Template Package` GitHub Actions workflow. The workflow publishes the committed version and can create a `topogram-template-todo-v<version>` tag.
+
+After publishing a template version, update the catalog from this repo instead
+of hand-editing the `todo` entry:
+
+```bash
+npm run catalog:update -- ../topograms/topograms.catalog.json
+```
+
+The script verifies `package.json` and `topogram-template.json` agree, then
+updates only the catalog entry with `id: "todo"` and package
+`@attebury/topogram-template-todo`. Use `--check` when you only want to verify
+the catalog is already aligned:
+
+```bash
+npm run catalog:update -- ../topograms/topograms.catalog.json --check
+```
