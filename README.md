@@ -5,6 +5,8 @@ Topogram template package for the generated Todo starter app.
 ## Usage
 
 ```bash
+topogram template list
+topogram catalog show todo
 topogram new ./todo-demo --template todo --catalog github:attebury/topograms/topograms.catalog.json
 cd ./todo-demo
 npm install
@@ -18,7 +20,9 @@ The public start path is the `todo` catalog alias. The catalog resolves that
 alias to the current `@attebury/topogram-template-todo` package version.
 
 This template includes executable implementation provider JavaScript under `implementation/`.
-Use it as trusted code from the `@attebury` package scope.
+`topogram new` copies that code but does not execute it; `topogram generate`
+may load it later after local trust metadata is recorded. Use it as trusted code
+from the `@attebury` package scope.
 
 ## Runtime Semantics
 
