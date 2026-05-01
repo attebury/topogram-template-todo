@@ -1,7 +1,7 @@
 import { renderSvelteKitRedirectingAction } from "@attebury/topogram/src/generator/surfaces/web/sveltekit-actions.js";
 import {
   renderSvelteKitComponentRegion
-} from "@attebury/topogram/src/generator/surfaces/web/sveltekit-components.js";
+} from "@attebury/topogram/template-helpers/sveltekit.js";
 import { TODO_WEB_SCREEN_REFERENCE } from "./screens-reference.js";
 
 export function renderTodoHomePage({
