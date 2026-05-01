@@ -1,0 +1,30 @@
+component component_ui_task_calendar {
+  name "Task Calendar"
+  description "Reusable calendar view for scheduled tasks"
+  category collection
+
+  props {
+    events array required
+    loading boolean optional default false
+    selected_id text optional default null
+  }
+
+  events {
+    event_select shape_output_task_card
+  }
+
+  slots {
+    toolbar "Calendar controls"
+    empty_state "Empty calendar content"
+  }
+
+  behavior [selection, filtering]
+  behaviors {
+    selection mode single state selected_id emits event_select
+    filtering fields [status, ownerId]
+  }
+  patterns [calendar_view]
+  regions [results, toolbar]
+  version "1.0"
+  status active
+}

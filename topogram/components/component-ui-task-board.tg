@@ -1,0 +1,33 @@
+component component_ui_task_board {
+  name "Task Board"
+  description "Reusable kanban-style task board grouped by status"
+  category collection
+
+  props {
+    columns array required
+    loading boolean optional default false
+    selected_id text optional default null
+  }
+
+  events {
+    card_select shape_output_task_card
+    card_move shape_input_update_task
+  }
+
+  slots {
+    toolbar "Board actions"
+    empty_state "Empty board content"
+  }
+
+  behavior [selection, grouping, drag_drop, optimistic_update]
+  behaviors {
+    selection mode single state selected_id emits card_select
+    grouping fields [status]
+    drag_drop axis horizontal reorder true
+    optimistic_update actions [card_move] rollback true
+  }
+  patterns [board_view, resource_cards]
+  regions [results, toolbar]
+  version "1.0"
+  status active
+}

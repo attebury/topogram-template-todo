@@ -122,5 +122,12 @@ projection proj_ui_shared {
     screen user_list region results pattern resource_table placement primary
   }
 
+  ui_components {
+    screen task_list region hero component component_ui_task_summary data metrics from cap_list_tasks
+    screen task_list region results component component_ui_task_table data rows from cap_list_tasks event row_select navigate task_detail event export_request action cap_export_tasks
+    screen task_board region results component component_ui_task_board data columns from cap_list_tasks event card_select navigate task_detail event card_move action cap_update_task
+    screen task_calendar region results component component_ui_task_calendar data events from cap_list_tasks event event_select navigate task_detail
+  }
+
   status active
 }

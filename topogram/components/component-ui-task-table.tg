@@ -1,0 +1,34 @@
+component component_ui_task_table {
+  name "Task Table"
+  description "Reusable tabular task collection with selection, sorting, filtering, and export affordances"
+  category collection
+
+  props {
+    rows array required
+    selected_ids array optional default []
+    loading boolean optional default false
+  }
+
+  events {
+    row_select shape_output_task_card
+    export_request shape_input_export_tasks
+  }
+
+  slots {
+    toolbar "Table actions and filters"
+    empty_state "Empty task list content"
+  }
+
+  behavior [selection, sorting, filtering, pagination, bulk_action]
+  behaviors {
+    selection mode multi state selected_ids emits row_select
+    sorting fields [title, status, priority, dueAt, created_at] default [created_at, desc]
+    filtering fields [project_id, owner_id, status]
+    pagination mode cursor page_size 25
+    bulk_action actions [export_request] state selected_ids emits export_request
+  }
+  patterns [resource_table, data_grid_view]
+  regions [results, toolbar]
+  version "1.0"
+  status active
+}

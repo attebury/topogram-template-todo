@@ -1,0 +1,23 @@
+component component_ui_task_summary {
+  name "Task Summary"
+  description "Reusable summary metrics for task workload state"
+  category display
+
+  props {
+    metrics object required
+    loading boolean optional default false
+  }
+
+  slots {
+    empty_state "Summary unavailable content"
+  }
+
+  behavior [realtime_update]
+  behaviors {
+    realtime_update source cap_list_tasks merge replace
+  }
+  patterns [summary_stats]
+  regions [hero, summary]
+  version "1.0"
+  status active
+}

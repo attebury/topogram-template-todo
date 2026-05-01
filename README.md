@@ -24,6 +24,11 @@ This template includes executable implementation provider JavaScript under `impl
 may load it later after local trust metadata is recorded. Use it as trusted code
 from the `@attebury` package scope.
 
+The Topogram source includes reusable UI components for task summary metrics,
+task tables, task boards, and task calendars. `proj_ui_shared` owns their
+screen and region placement through `ui_components`, so SvelteKit and React web
+projections inherit the same component contract metadata.
+
 ## Runtime Semantics
 
 This template owns the Todo product semantics for the generated SvelteKit,
