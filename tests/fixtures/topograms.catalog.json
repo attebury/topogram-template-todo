@@ -5,7 +5,7 @@
       "id": "todo",
       "kind": "template",
       "package": "@attebury/topogram-template-todo",
-      "defaultVersion": "0.1.12",
+      "defaultVersion": "0.1.13",
       "description": "Fixture Todo template catalog entry.",
       "tags": [
         "fixture",
