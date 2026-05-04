@@ -22,9 +22,9 @@
     "release:check": "bash ./scripts/check-release-version.sh"
   },
   "devDependencies": {
-    "@attebury/topogram": "^0.3.19",
+    "@attebury/topogram": "^0.3.22",
     "@attebury/topogram-generator-hono-api": "^0.2.5",
     "@attebury/topogram-generator-postgres-db": "^0.1.5",
-    "@attebury/topogram-generator-sveltekit-web": "^0.1.10"
+    "@attebury/topogram-generator-sveltekit-web": "^0.1.11"
   }
 }
