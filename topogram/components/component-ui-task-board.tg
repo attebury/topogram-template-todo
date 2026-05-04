@@ -24,7 +24,7 @@ component component_ui_task_board {
     selection mode single state selected_id emits card_select
     grouping fields [status]
     drag_drop axis horizontal reorder true
-    optimistic_update actions [card_move] rollback true
+    optimistic_update actions [cap_update_task] rollback true
   }
   patterns [board_view, resource_cards]
   regions [results, toolbar]

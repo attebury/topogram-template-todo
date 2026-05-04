@@ -25,7 +25,7 @@ component component_ui_task_table {
     sorting fields [title, status, priority, dueAt, created_at] default [created_at, desc]
     filtering fields [project_id, owner_id, status]
     pagination mode cursor page_size 25
-    bulk_action actions [export_request] state selected_ids emits export_request
+    bulk_action actions [cap_export_tasks] state selected_ids emits export_request
   }
   patterns [resource_table, data_grid_view]
   regions [results, toolbar]
