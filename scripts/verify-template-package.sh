@@ -86,6 +86,15 @@ if [[ ! -f "$STARTER_DIR/package.json" ]]; then
   exit 1
 fi
 
+node --input-type=module - "$STARTER_DIR/package.json" <<'NODE'
+import fs from "node:fs";
+const packagePath = process.argv[2];
+const pkg = JSON.parse(fs.readFileSync(packagePath, "utf8"));
+if (pkg.scripts?.["component:behavior:query"] !== "topogram query component-behavior ./topogram --projection proj_ui_web --json") {
+  throw new Error("Expected Todo starter package.json to expose component:behavior:query.");
+}
+NODE
+
 echo "Installing starter dependencies..."
 npm --prefix "$STARTER_DIR" install >/dev/null
 
@@ -94,6 +103,7 @@ npm --prefix "$STARTER_DIR" run doctor
 npm --prefix "$STARTER_DIR" run source:status
 npm --prefix "$STARTER_DIR" run template:detach:dry-run
 npm --prefix "$STARTER_DIR" run check
+npm --prefix "$STARTER_DIR" run component:behavior:query
 npm --prefix "$STARTER_DIR" run generate
 
 if [[ ! -f "$STARTER_DIR/app/.topogram-generated.json" ]]; then
