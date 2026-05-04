@@ -2,3 +2,5 @@ node_modules/
 .tmp/
 .DS_Store
 *.tgz
+.topogram-template-files.json
+.topogram-template-trust.json
