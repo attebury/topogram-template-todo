@@ -93,6 +93,9 @@ const pkg = JSON.parse(fs.readFileSync(packagePath, "utf8"));
 if (pkg.scripts?.["component:behavior:query"] !== "topogram query component-behavior ./topogram --projection proj_ui_web --json") {
   throw new Error("Expected Todo starter package.json to expose component:behavior:query.");
 }
+if (pkg.scripts?.["query:show"] !== "topogram query show") {
+  throw new Error("Expected Todo starter package.json to expose query:show.");
+}
 NODE
 
 echo "Installing starter dependencies..."
@@ -100,6 +103,8 @@ npm --prefix "$STARTER_DIR" install >/dev/null
 
 echo "Checking and generating the starter..."
 npm --prefix "$STARTER_DIR" run doctor
+npm --prefix "$STARTER_DIR" run query:list
+npm --prefix "$STARTER_DIR" run query:show -- component-behavior
 npm --prefix "$STARTER_DIR" run source:status
 npm --prefix "$STARTER_DIR" run template:detach:dry-run
 npm --prefix "$STARTER_DIR" run check
