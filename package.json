@@ -1,6 +1,6 @@
 {
   "name": "@attebury/topogram-template-todo",
-  "version": "0.1.17",
+  "version": "0.1.18",
   "description": "Topogram template pack for starting a generated Todo app.",
   "private": false,
   "license": "UNLICENSED",
@@ -24,7 +24,7 @@
   "devDependencies": {
     "@attebury/topogram": "^0.3.16",
     "@attebury/topogram-generator-hono-api": "^0.2.3",
-    "@attebury/topogram-generator-postgres-db": "^0.1.3",
+    "@attebury/topogram-generator-postgres-db": "^0.1.4",
     "@attebury/topogram-generator-sveltekit-web": "^0.1.5"
   }
 }
