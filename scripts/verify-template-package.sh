@@ -110,6 +110,7 @@ npm --prefix "$STARTER_DIR" run template:detach:dry-run
 npm --prefix "$STARTER_DIR" run check
 npm --prefix "$STARTER_DIR" run component:behavior:query
 npm --prefix "$STARTER_DIR" run generate
+npm --prefix "$STARTER_DIR/app" run compile
 
 if [[ ! -f "$STARTER_DIR/app/.topogram-generated.json" ]]; then
   echo "Expected generated app sentinel was not written." >&2
