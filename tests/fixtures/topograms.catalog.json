@@ -4,8 +4,8 @@
     {
       "id": "todo",
       "kind": "template",
-      "package": "@attebury/topogram-template-todo",
-      "defaultVersion": "0.1.29",
+      "package": "@topogram/template-todo",
+      "defaultVersion": "0.1.30",
       "description": "Fixture Todo template catalog entry.",
       "tags": [
         "fixture",
@@ -13,7 +13,7 @@
         "template"
       ],
       "trust": {
-        "scope": "@attebury",
+        "scope": "@topogram",
         "includesExecutableImplementation": true
       }
     }

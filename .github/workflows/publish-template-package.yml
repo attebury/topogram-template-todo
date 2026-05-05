@@ -20,7 +20,7 @@ on:
 
 permissions:
   contents: write
-  packages: write
+  id-token: write
 
 env:
   FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
@@ -35,20 +35,16 @@ jobs:
       - uses: actions/setup-node@v6
         with:
           node-version: 24
-          registry-url: https://npm.pkg.github.com
-          scope: "@attebury"
+          registry-url: https://registry.npmjs.org
+          scope: "@topogram"
       - name: Check release version
         env:
           EXPECTED_TEMPLATE_VERSION: ${{ inputs.version }}
         run: bash ./scripts/check-release-version.sh
       - name: Verify packed template
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: npm run pack:check
       - name: Publish
-        run: npm publish --tag "${{ inputs.dist_tag }}"
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: npm publish --provenance --access public --tag "${{ inputs.dist_tag }}"
       - name: Create release tag
         if: ${{ inputs.create_tag }}
         run: |

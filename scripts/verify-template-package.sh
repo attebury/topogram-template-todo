@@ -5,10 +5,10 @@ ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 WORK_ROOT="$ROOT_DIR/.tmp/template-package"
 NPM_CACHE_DIR="$ROOT_DIR/.tmp/npm-cache"
 DEFAULT_CLI_VERSION="$(cat "$ROOT_DIR/topogram-cli.version")"
-CLI_PACKAGE_SPEC="${TOPOGRAM_CLI_PACKAGE_SPEC:-@attebury/topogram@$DEFAULT_CLI_VERSION}"
+CLI_PACKAGE_SPEC="${TOPOGRAM_CLI_PACKAGE_SPEC:-@topogram/cli@$DEFAULT_CLI_VERSION}"
 STARTER_CLI_PACKAGE_SPEC="$CLI_PACKAGE_SPEC"
-if [[ "$STARTER_CLI_PACKAGE_SPEC" == @attebury/topogram@* ]]; then
-  STARTER_CLI_PACKAGE_SPEC="${STARTER_CLI_PACKAGE_SPEC#@attebury/topogram@}"
+if [[ "$STARTER_CLI_PACKAGE_SPEC" == @topogram/cli@* ]]; then
+  STARTER_CLI_PACKAGE_SPEC="${STARTER_CLI_PACKAGE_SPEC#@topogram/cli@}"
 fi
 
 mkdir -p "$WORK_ROOT" "$NPM_CACHE_DIR"
@@ -22,8 +22,65 @@ mkdir -p "$PACK_DIR" "$CONSUMER_DIR"
 echo "Checking release metadata..."
 "$ROOT_DIR/scripts/check-release-version.sh"
 
-echo "Packing @attebury/topogram-template-todo..."
-PACK_NAME="$(cd "$ROOT_DIR" && npm pack --silent --pack-destination "$PACK_DIR" | tail -n 1)"
+GENERATOR_OVERRIDES_JSON="{}"
+if [[ -n "${TOPOGRAM_GENERATOR_PACKAGE_ROOTS:-}" ]]; then
+  GENERATOR_OVERRIDES_JSON="$(node --input-type=module - "$PACK_DIR" "$TOPOGRAM_GENERATOR_PACKAGE_ROOTS" <<'NODE'
+import childProcess from "node:child_process";
+import fs from "node:fs";
+import path from "node:path";
+const packDir = process.argv[2];
+const roots = process.argv[3].split(path.delimiter).filter(Boolean);
+const overrides = {};
+for (const root of roots) {
+  const pkg = JSON.parse(fs.readFileSync(path.join(root, "package.json"), "utf8"));
+  const result = childProcess.spawnSync("npm", ["pack", "--silent", "--pack-destination", packDir], {
+    cwd: root,
+    encoding: "utf8",
+    env: { ...process.env, PATH: process.env.PATH || "" }
+  });
+  if (result.status !== 0) {
+    throw new Error([`npm pack failed for ${root}`, result.stdout, result.stderr].filter(Boolean).join("\n"));
+  }
+  const tarball = result.stdout.trim().split(/\r?\n/).filter(Boolean).at(-1);
+  overrides[pkg.name] = `file:${path.join(packDir, tarball)}`;
+}
+process.stdout.write(JSON.stringify(overrides));
+NODE
+)"
+fi
+
+PACK_SOURCE_DIR="$ROOT_DIR"
+if [[ "$GENERATOR_OVERRIDES_JSON" != "{}" ]]; then
+  PACK_SOURCE_DIR="$(mktemp -d "${TMPDIR:-/tmp}/topogram-template-source.XXXXXX")"
+  node --input-type=module - "$ROOT_DIR" "$PACK_SOURCE_DIR" "$GENERATOR_OVERRIDES_JSON" <<'NODE'
+import fs from "node:fs";
+import path from "node:path";
+const source = process.argv[2];
+const target = process.argv[3];
+const overrides = JSON.parse(process.argv[4]);
+fs.rmSync(target, { recursive: true, force: true });
+fs.cpSync(source, target, {
+  recursive: true,
+  filter(filePath) {
+    const relative = path.relative(source, filePath);
+    return !relative.split(path.sep).some((segment) => segment === ".git" || segment === ".tmp" || segment === "node_modules");
+  }
+});
+const packagePath = path.join(target, "package.json");
+const pkg = JSON.parse(fs.readFileSync(packagePath, "utf8"));
+for (const sectionName of ["dependencies", "devDependencies"]) {
+  const section = pkg[sectionName];
+  if (!section || typeof section !== "object") continue;
+  for (const [name, spec] of Object.entries(overrides)) {
+    if (Object.prototype.hasOwnProperty.call(section, name)) section[name] = spec;
+  }
+}
+fs.writeFileSync(packagePath, `${JSON.stringify(pkg, null, 2)}\n`, "utf8");
+NODE
+fi
+
+echo "Packing @topogram/template-todo..."
+PACK_NAME="$(cd "$PACK_SOURCE_DIR" && npm pack --silent --pack-destination "$PACK_DIR" | tail -n 1)"
 TEMPLATE_TARBALL="$PACK_DIR/$PACK_NAME"
 
 if [[ ! -f "$TEMPLATE_TARBALL" ]]; then
@@ -33,14 +90,10 @@ fi
 
 echo "Installing Topogram CLI ($CLI_PACKAGE_SPEC) into a consumer project..."
 (
-  cd "$CONSUMER_DIR"
-  npm init -y >/dev/null
-  npm config set @attebury:registry https://npm.pkg.github.com --location=project
-  if [[ -n "${NODE_AUTH_TOKEN:-}" ]]; then
-    npm config set //npm.pkg.github.com/:_authToken "$NODE_AUTH_TOKEN" --location=project
-  fi
-  npm install "$CLI_PACKAGE_SPEC" >/dev/null
-)
+	  cd "$CONSUMER_DIR"
+	  npm init -y >/dev/null
+	  npm install "$CLI_PACKAGE_SPEC" >/dev/null
+	)
 
 TOPOGRAM_BIN="$CONSUMER_DIR/node_modules/.bin/topogram"
 if [[ ! -x "$TOPOGRAM_BIN" ]]; then
@@ -52,12 +105,12 @@ node --input-type=module - "$VERSION_JSON" "$CLI_PACKAGE_SPEC" "${EXPECTED_TOPOG
 const payload = JSON.parse(process.argv[2]);
 const packageSpec = process.argv[3];
 const explicitExpected = process.argv[4] || "";
-const inferred = packageSpec.startsWith("@attebury/topogram@")
-  ? packageSpec.slice("@attebury/topogram@".length)
+const inferred = packageSpec.startsWith("@topogram/cli@")
+  ? packageSpec.slice("@topogram/cli@".length)
   : "";
 const expected = explicitExpected || (/^\d+\.\d+\.\d+/.test(inferred) ? inferred : "");
-if (payload.packageName !== "@attebury/topogram") {
-  throw new Error(`Expected @attebury/topogram, got ${payload.packageName}`);
+if (payload.packageName !== "@topogram/cli") {
+  throw new Error(`Expected @topogram/cli, got ${payload.packageName}`);
 }
 if (expected && payload.version !== expected) {
   throw new Error(`Expected Topogram CLI ${expected}, got ${payload.version}`);

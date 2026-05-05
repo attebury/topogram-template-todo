@@ -17,12 +17,12 @@ npm run verify
 ```
 
 The public start path is the `todo` catalog alias. The catalog resolves that
-alias to the current `@attebury/topogram-template-todo` package version.
+alias to the current `@topogram/template-todo` package version.
 
 This template includes executable implementation provider JavaScript under `implementation/`.
 `topogram new` copies that code but does not execute it; `topogram generate`
 may load it later after local trust metadata is recorded. Use it as trusted code
-from the `@attebury` package scope.
+from the `@topogram` package scope.
 
 The Topogram source includes reusable UI components for task summary metrics,
 task tables, task boards, and task calendars. `proj_ui_shared` owns their
@@ -57,7 +57,7 @@ runs the generated app compile check, and verifies the generated app sentinel. T
 test intentionally uses the packed tarball directly; consumer-facing creation
 is verified in `topogram-demo-todo` through the `todo` catalog alias.
 
-By default the smoke test installs the `@attebury/topogram` version pinned in
+By default the smoke test installs the `@topogram/cli` version pinned in
 `topogram-cli.version`. Override it with:
 
 ```bash
@@ -83,7 +83,7 @@ npm run catalog:update -- ../topograms/topograms.catalog.json
 
 The script verifies `package.json` and `topogram-template.json` agree, then
 updates only the catalog entry with `id: "todo"` and package
-`@attebury/topogram-template-todo`. Use `--check` when you only want to verify
+`@topogram/template-todo`. Use `--check` when you only want to verify
 the catalog is already aligned:
 
 ```bash

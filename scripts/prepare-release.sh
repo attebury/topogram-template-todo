@@ -27,7 +27,7 @@ NODE
 
 "$ROOT_DIR/scripts/check-release-version.sh"
 
-echo "Prepared @attebury/topogram-template-todo@$VERSION"
+echo "Prepared @topogram/template-todo@$VERSION"
 echo
 echo "Next:"
 echo "  git add package.json package-lock.json topogram-template.json"

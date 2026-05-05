@@ -13,7 +13,7 @@ npm run pack:check
 The check must:
 
 - install the Topogram CLI package pinned in `topogram-cli.version`;
-- pack `@attebury/topogram-template-todo`;
+- pack `@topogram/template-todo`;
 - run `topogram template check <tarball>`;
 - create a disposable starter with `topogram new --template <tarball>`;
 - install starter dependencies;
@@ -28,5 +28,5 @@ The check must:
 - Generate-only package smoke tests.
 - Sentinel-only checks such as only verifying `app/.topogram-generated.json`.
 - Fake template/package installs in consumer-facing verification.
-- Stale hard-coded `@attebury/topogram@x.y.z` literals instead of
+- Stale hard-coded `@topogram/cli@x.y.z` literals instead of
   `topogram-cli.version`.

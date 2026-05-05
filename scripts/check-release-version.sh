@@ -19,12 +19,12 @@ function fail(message) {
   process.exit(1);
 }
 
-if (pkg.name !== "@attebury/topogram-template-todo") {
-  fail(`Expected package name @attebury/topogram-template-todo, found ${pkg.name}`);
+if (pkg.name !== "@topogram/template-todo") {
+  fail(`Expected package name @topogram/template-todo, found ${pkg.name}`);
 }
 
-if (manifest.id !== "@attebury/topogram-template-todo") {
-  fail(`Expected template id @attebury/topogram-template-todo, found ${manifest.id}`);
+if (manifest.id !== "@topogram/template-todo") {
+  fail(`Expected template id @topogram/template-todo, found ${manifest.id}`);
 }
 
 const packageVersion = pkg.version;

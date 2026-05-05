@@ -19,8 +19,8 @@ if (!fs.existsSync(catalogPath)) {
 const pkg = readJson(path.join(root, "package.json"));
 const manifest = readJson(path.join(root, "topogram-template.json"));
 
-if (pkg.name !== "@attebury/topogram-template-todo") {
-  fail(`Expected package name @attebury/topogram-template-todo, found ${pkg.name}`);
+if (pkg.name !== "@topogram/template-todo") {
+  fail(`Expected package name @topogram/template-todo, found ${pkg.name}`);
 }
 if (manifest.id !== pkg.name) {
   fail(`Template manifest id ${manifest.id} must match package name ${pkg.name}.`);
