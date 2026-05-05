@@ -5,9 +5,11 @@ Topogram template package for starting a generated Todo app.
 ## Usage
 
 ```bash
-topogram template list
-topogram catalog show todo
-topogram new ./todo-app --template todo --catalog github:attebury/topograms/topograms.catalog.json
+npm install --save-dev @topogram/cli
+npx topogram doctor
+npx topogram template list
+npx topogram catalog show todo
+npx topogram new ./todo-app --template todo
 cd ./todo-app
 npm install
 npm run doctor
