@@ -46,6 +46,9 @@ still verify user-scoped behavior with the sample auth environment.
 npm run pack:check
 ```
 
+See [`CONSUMER_PROOF.md`](./CONSUMER_PROOF.md) for the verification standard
+this repo must keep before publishing the template package.
+
 This runs reusable template conformance with `topogram template check`, packs
 the template, creates a disposable starter with `topogram new --template
 <tarball>`, installs the starter, runs `npm run doctor`, runs `npm run source:status`,
