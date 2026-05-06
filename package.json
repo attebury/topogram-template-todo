@@ -27,7 +27,7 @@
     "release:check": "bash ./scripts/check-release-version.sh"
   },
   "devDependencies": {
-    "@topogram/cli": "^0.3.40",
+    "@topogram/cli": "^0.3.41",
     "@topogram/generator-hono-api": "0.2.6",
     "@topogram/generator-postgres-db": "0.1.6",
     "@topogram/generator-sveltekit-web": "0.1.14"
