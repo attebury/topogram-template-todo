@@ -44,6 +44,8 @@ jobs:
       - name: Verify packed template
         run: npm run pack:check
       - name: Publish
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
         run: npm publish --provenance --access public --tag "${{ inputs.dist_tag }}"
       - name: Create release tag
         if: ${{ inputs.create_tag }}

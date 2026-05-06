@@ -5,6 +5,10 @@
   "private": false,
   "license": "UNLICENSED",
   "type": "module",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/attebury/topogram-template-todo"
+  },
   "files": [
     "topogram-template.json",
     "topogram",
