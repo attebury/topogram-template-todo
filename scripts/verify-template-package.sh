@@ -88,6 +88,14 @@ if [[ ! -f "$TEMPLATE_TARBALL" ]]; then
   exit 1
 fi
 
+if tar -tzf "$TEMPLATE_TARBALL" | awk -F/ '{ print $NF }' | grep -E '^\.env' >/tmp/topogram-template-env-files.$$; then
+  echo "Template package must not publish .env* files:" >&2
+  cat /tmp/topogram-template-env-files.$$ >&2
+  rm -f /tmp/topogram-template-env-files.$$
+  exit 1
+fi
+rm -f /tmp/topogram-template-env-files.$$
+
 echo "Installing Topogram CLI ($CLI_PACKAGE_SPEC) into a consumer project..."
 (
 	  cd "$CONSUMER_DIR"
