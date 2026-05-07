@@ -178,5 +178,25 @@ if [[ ! -f "$STARTER_DIR/app/.topogram-generated.json" ]]; then
   exit 1
 fi
 
+node --input-type=module - "$STARTER_DIR" <<'NODE'
+import fs from "node:fs";
+import path from "node:path";
+const starterDir = process.argv[2];
+const webRoot = path.join(starterDir, "app", "apps", "web", "app_sveltekit");
+const coveragePath = path.join(webRoot, "src", "lib", "topogram", "generation-coverage.json");
+const cssPath = path.join(webRoot, "src", "app.css");
+const coverage = JSON.parse(fs.readFileSync(coveragePath, "utf8"));
+if (coverage.design_intent?.status !== "mapped") {
+  throw new Error("Expected generated Todo app coverage to map design intent.");
+}
+if (coverage.design_intent.tokens?.density !== "compact") {
+  throw new Error("Expected generated Todo app to preserve compact design density.");
+}
+const css = fs.readFileSync(cssPath, "utf8");
+if (!css.includes("--topogram-design-density: compact;") || !css.includes("--topogram-design-color-primary: work_primary;")) {
+  throw new Error("Expected generated Todo app CSS to include Topogram design-intent variables.");
+}
+NODE
+
 echo
 echo "Template package smoke passed: $TEMPLATE_TARBALL"
