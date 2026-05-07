@@ -1,8 +1,8 @@
-projection proj_ui_shared {
+projection proj_ui_contract {
   name "Todo Shared UI"
   description "Platform-neutral UI semantics for the Todo product"
 
-  platform ui_shared
+  type ui_contract
   realizes [
     cap_list_projects,
     cap_get_project,
@@ -24,7 +24,7 @@ projection proj_ui_shared {
   ]
   outputs [ui_contract]
 
-  ui_app_shell {
+  app_shell {
     brand "Topogram Todo"
     shell bottom_tabs
     global_search true
@@ -33,7 +33,7 @@ projection proj_ui_shared {
     footer legal
   }
 
-  ui_design {
+  design_tokens {
     density compact
     tone operational
     radius_scale medium
@@ -61,7 +61,7 @@ projection proj_ui_shared {
     accessibility min_touch_target comfortable
   }
 
-  ui_screens {
+  screens {
     screen project_list kind list title "Projects" load cap_list_projects item_shape shape_output_project_card detail_capability cap_get_project primary_action cap_create_project empty_title "No projects yet" empty_body "Create a project to organize your tasks" loading_state skeleton error_state inline
     screen project_detail kind detail title "Project Details" load cap_get_project view_shape shape_output_project_detail primary_action cap_update_project loading_state skeleton
     screen project_create kind form title "Create Project" input_shape shape_input_create_project submit cap_create_project success_navigate project_detail success_state banner
@@ -79,7 +79,7 @@ projection proj_ui_shared {
     screen task_exports kind job_status title "Export Status" load cap_get_task_export_job view_shape shape_output_task_export_status terminal_action cap_download_task_export
   }
 
-  ui_collections {
+  collection_views {
     screen project_list pagination cursor
     screen project_list sort created_at desc
     screen project_list view table
@@ -95,7 +95,7 @@ projection proj_ui_shared {
     screen task_list view table
   }
 
-  ui_actions {
+  screen_actions {
     screen project_list action cap_create_project prominence primary placement toolbar
     screen user_list action cap_create_user prominence primary placement toolbar
     screen task_list action cap_export_tasks prominence secondary placement toolbar
@@ -103,7 +103,7 @@ projection proj_ui_shared {
     screen task_detail action cap_delete_task prominence destructive placement footer
   }
 
-  ui_visibility {
+  visibility_rules {
     action cap_create_project visible_if permission projects.create
     action cap_update_project visible_if permission projects.update
     action cap_create_user visible_if permission users.create
@@ -114,7 +114,7 @@ projection proj_ui_shared {
     action cap_export_tasks visible_if permission tasks.export
   }
 
-  ui_lookups {
+  field_lookups {
     screen project_create field owner_id entity entity_user label_field display_name empty_label "Unassigned"
     screen project_edit field owner_id entity entity_user label_field display_name empty_label "Unassigned"
     screen task_list field project_id entity entity_project label_field name empty_label "All projects"
@@ -124,7 +124,7 @@ projection proj_ui_shared {
     screen task_edit field owner_id entity entity_user label_field display_name empty_label "Unassigned"
   }
 
-  ui_navigation {
+  navigation {
     group workspace label "Workspace" placement primary pattern bottom_tabs
     group admin label "Admin" placement primary pattern bottom_tabs
     screen task_list group workspace label "Tasks" order 10 visible true default true sitemap include pattern bottom_tabs
@@ -136,7 +136,7 @@ projection proj_ui_shared {
     screen task_detail group workspace label "Task Details" visible false breadcrumb task_list sitemap exclude pattern stack_navigation
   }
 
-  ui_screen_regions {
+  screen_regions {
     screen task_list region hero pattern summary_stats placement primary
     screen task_list region toolbar pattern action_bar placement primary
     screen task_list region results pattern resource_table placement primary
@@ -150,11 +150,11 @@ projection proj_ui_shared {
     screen user_list region results pattern resource_table placement primary
   }
 
-  ui_components {
-    screen task_list region hero component component_ui_task_summary data metrics from cap_list_tasks
-    screen task_list region results component component_ui_task_table data rows from cap_list_tasks event row_select navigate task_detail event export_request action cap_export_tasks
-    screen task_board region results component component_ui_task_board data columns from cap_list_tasks event card_select navigate task_detail event card_move action cap_update_task
-    screen task_calendar region results component component_ui_task_calendar data events from cap_list_tasks event event_select navigate task_detail
+  widget_bindings {
+    screen task_list region hero widget widget_ui_task_summary data metrics from cap_list_tasks
+    screen task_list region results widget widget_ui_task_table data rows from cap_list_tasks event row_select navigate task_detail event export_request action cap_export_tasks
+    screen task_board region results widget widget_ui_task_board data columns from cap_list_tasks event card_select navigate task_detail event card_move action cap_update_task
+    screen task_calendar region results widget widget_ui_task_calendar data events from cap_list_tasks event event_select navigate task_detail
   }
 
   status active

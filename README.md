@@ -26,10 +26,10 @@ This template includes executable implementation provider JavaScript under `impl
 may load it later after local trust metadata is recorded. Use it as trusted code
 from the `@topogram` package scope.
 
-The Topogram source includes reusable UI components for task summary metrics,
-task tables, task boards, and task calendars. `proj_ui_shared` owns their
-screen and region placement through `ui_components`, so SvelteKit and React web
-projections inherit the same component contract metadata.
+The Topogram source includes reusable UI widgets for task summary metrics,
+task tables, task boards, and task calendars. `proj_ui_contract` owns their
+screen and region placement through `widget_bindings`, so SvelteKit and React web
+projections inherit the same widget contract metadata.
 
 ## Runtime Semantics
 
@@ -63,7 +63,7 @@ By default the smoke test installs the `@topogram/cli` version pinned in
 `topogram-cli.version`. Override it with:
 
 ```bash
-TOPOGRAM_CLI_PACKAGE_SPEC=/path/to/topogram-cli-0.3.38.tgz npm run pack:check
+TOPOGRAM_CLI_PACKAGE_SPEC=/path/to/topogram-cli.tgz npm run pack:check
 ```
 
 ## Release

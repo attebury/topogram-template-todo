@@ -1,6 +1,6 @@
 import { renderSvelteKitRedirectingAction } from "@topogram/cli/src/generator/surfaces/web/sveltekit-actions.js";
 import {
-  renderSvelteKitComponentRegion
+  renderSvelteKitWidgetRegion
 } from "@topogram/cli/template-helpers/sveltekit.js";
 import { TODO_WEB_SCREEN_REFERENCE } from "./screens-reference.js";
 
@@ -75,13 +75,13 @@ export function renderTodoTaskRoutes({
   const editTaskVisibility = taskDetail.visibility?.find((entry) => entry.capability?.id === "cap_update_task") || null;
   const completeTaskVisibility = taskDetail.visibility?.find((entry) => entry.capability?.id === "cap_complete_task") || null;
   const deleteTaskVisibility = taskDetail.visibility?.find((entry) => entry.capability?.id === "cap_delete_task") || null;
-  const taskListHeroComponents = renderSvelteKitComponentRegion(taskList, "hero", {
-    componentContracts: contract.components,
+  const taskListHeroComponents = renderSvelteKitWidgetRegion(taskList, "hero", {
+    widgetContracts: contract.widgets,
     itemsExpression: "data.result.items",
     useTypescript
   });
-  const taskListResultsComponents = renderSvelteKitComponentRegion(taskList, "results", {
-    componentContracts: contract.components,
+  const taskListResultsComponents = renderSvelteKitWidgetRegion(taskList, "results", {
+    widgetContracts: contract.widgets,
     itemsExpression: "data.result.items",
     useTypescript
   });

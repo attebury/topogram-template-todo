@@ -1,11 +1,11 @@
 {
   "id": "@topogram/template-todo",
-  "version": "0.1.33",
+  "version": "0.1.34",
   "kind": "starter",
-  "description": "Todo/task management starter with generated web, API, and Postgres components.",
+  "description": "Todo/task management starter with generated web, API, and Postgres runtimes.",
   "topogramVersion": "0.1",
   "includesExecutableImplementation": true,
   "starterScripts": {
-    "component:behavior:query": "topogram query component-behavior ./topogram --projection proj_ui_web --json"
+    "widget:behavior:query": "topogram query widget-behavior ./topogram --projection proj_web_surface --json"
   }
 }

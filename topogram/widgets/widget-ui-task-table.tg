@@ -1,4 +1,4 @@
-component component_ui_task_table {
+widget widget_ui_task_table {
   name "Task Table"
   description "Reusable tabular task collection with selection, sorting, filtering, and export affordances"
   category collection

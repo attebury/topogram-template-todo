@@ -18,7 +18,7 @@ The check must:
 - create a disposable starter with `topogram new --template <tarball>`;
 - install starter dependencies;
 - run `doctor`, query/source/template trust commands, `check`, and
-  component-behavior proof;
+  widget-behavior proof;
 - run `npm run generate`;
 - run `npm --prefix app run compile` after generation.
 

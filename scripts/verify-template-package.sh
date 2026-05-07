@@ -151,8 +151,8 @@ node --input-type=module - "$STARTER_DIR/package.json" <<'NODE'
 import fs from "node:fs";
 const packagePath = process.argv[2];
 const pkg = JSON.parse(fs.readFileSync(packagePath, "utf8"));
-if (pkg.scripts?.["component:behavior:query"] !== "topogram query component-behavior ./topogram --projection proj_ui_web --json") {
-  throw new Error("Expected Todo starter package.json to expose component:behavior:query.");
+if (pkg.scripts?.["widget:behavior:query"] !== "topogram query widget-behavior ./topogram --projection proj_web_surface --json") {
+  throw new Error("Expected Todo starter package.json to expose widget:behavior:query.");
 }
 if (pkg.scripts?.["query:show"] !== "topogram query show") {
   throw new Error("Expected Todo starter package.json to expose query:show.");
@@ -165,11 +165,11 @@ npm --prefix "$STARTER_DIR" install >/dev/null
 echo "Checking and generating the starter..."
 npm --prefix "$STARTER_DIR" run doctor
 npm --prefix "$STARTER_DIR" run query:list
-npm --prefix "$STARTER_DIR" run query:show -- component-behavior
+npm --prefix "$STARTER_DIR" run query:show -- widget-behavior
 npm --prefix "$STARTER_DIR" run source:status
 npm --prefix "$STARTER_DIR" run template:detach:dry-run
 npm --prefix "$STARTER_DIR" run check
-npm --prefix "$STARTER_DIR" run component:behavior:query
+npm --prefix "$STARTER_DIR" run widget:behavior:query
 npm --prefix "$STARTER_DIR" run generate
 npm --prefix "$STARTER_DIR/app" run compile
 

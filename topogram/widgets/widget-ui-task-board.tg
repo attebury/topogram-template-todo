@@ -1,4 +1,4 @@
-component component_ui_task_board {
+widget widget_ui_task_board {
   name "Task Board"
   description "Reusable kanban-style task board grouped by status"
   category collection

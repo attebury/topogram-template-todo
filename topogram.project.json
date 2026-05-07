@@ -12,10 +12,9 @@
     }
   },
   "topology": {
-    "components": [
+    "runtimes": [
       {
         "id": "app_api",
-        "type": "api",
         "projection": "proj_api",
         "generator": {
           "id": "@topogram/generator-hono-api",
@@ -23,30 +22,31 @@
           "package": "@topogram/generator-hono-api"
         },
         "port": 3000,
-        "database": "app_postgres"
+        "kind": "api_service",
+        "uses_database": "app_postgres"
       },
       {
         "id": "app_sveltekit",
-        "type": "web",
-        "projection": "proj_ui_web",
+        "projection": "proj_web_surface",
         "generator": {
           "id": "@topogram/generator-sveltekit-web",
           "version": "1",
           "package": "@topogram/generator-sveltekit-web"
         },
         "port": 5173,
-        "api": "app_api"
+        "kind": "web_surface",
+        "uses_api": "app_api"
       },
       {
         "id": "app_postgres",
-        "type": "database",
         "projection": "proj_db_postgres",
         "generator": {
           "id": "@topogram/generator-postgres-db",
           "version": "1",
           "package": "@topogram/generator-postgres-db"
         },
-        "port": 5432
+        "port": 5432,
+        "kind": "database"
       }
     ]
   }

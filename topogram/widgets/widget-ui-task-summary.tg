@@ -1,4 +1,4 @@
-component component_ui_task_summary {
+widget widget_ui_task_summary {
   name "Task Summary"
   description "Reusable summary metrics for task workload state"
   category display

@@ -23,8 +23,8 @@ related_rules:
   - rule_only_active_users_may_own_tasks
 related_projections:
   - proj_api
-  - proj_ui_shared
-  - proj_ui_web
+  - proj_ui_contract
+  - proj_web_surface
 failure_signals:
   - The user can create a task in an archived project.
   - The user can assign a task to an inactive owner.

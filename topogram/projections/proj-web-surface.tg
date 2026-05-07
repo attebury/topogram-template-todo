@@ -1,8 +1,8 @@
-projection proj_ui_web_react {
-  name "Todo Web UI (React)"
-  description "Web realization for the shared Todo UI using a React profile"
+projection proj_web_surface {
+  name "Todo Web UI"
+  description "Web realization for the shared Todo UI using a SvelteKit profile"
 
-  platform ui_web
+  type web_surface
   realizes [
     cap_list_projects,
     cap_get_project,
@@ -12,7 +12,7 @@ projection proj_ui_web_react {
     cap_get_user,
     cap_create_user,
     cap_update_user,
-    proj_ui_shared,
+    proj_ui_contract,
     cap_list_tasks,
     cap_get_task,
     cap_create_task,
@@ -25,7 +25,7 @@ projection proj_ui_web_react {
   ]
   outputs [ui_contract, web_app]
 
-  ui_routes {
+  screen_routes {
     screen project_list path /projects
     screen project_detail path /projects/:id
     screen project_create path /projects/new
@@ -43,7 +43,7 @@ projection proj_ui_web_react {
     screen task_exports path /task-exports/:job_id
   }
 
-  ui_web {
+  web_hints {
     screen task_list shell bottom_tabs
     screen project_list layout responsive_collection
     screen project_list desktop_variant table
@@ -83,7 +83,7 @@ projection proj_ui_web_react {
   }
 
   generator_defaults {
-    profile react
+    profile sveltekit
     language typescript
     styling css
   }

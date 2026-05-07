@@ -1,4 +1,4 @@
-component component_ui_task_calendar {
+widget widget_ui_task_calendar {
   name "Task Calendar"
   description "Reusable calendar view for scheduled tasks"
   category collection
