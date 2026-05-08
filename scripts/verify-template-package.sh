@@ -182,19 +182,31 @@ node --input-type=module - "$STARTER_DIR" <<'NODE'
 import fs from "node:fs";
 import path from "node:path";
 const starterDir = process.argv[2];
-const webRoot = path.join(starterDir, "app", "apps", "web", "app_sveltekit");
-const coveragePath = path.join(webRoot, "src", "lib", "topogram", "generation-coverage.json");
-const cssPath = path.join(webRoot, "src", "app.css");
-const coverage = JSON.parse(fs.readFileSync(coveragePath, "utf8"));
-if (coverage.design_intent?.status !== "mapped") {
-  throw new Error("Expected generated Todo app coverage to map design intent.");
-}
-if (coverage.design_intent.tokens?.density !== "compact") {
-  throw new Error("Expected generated Todo app to preserve compact design density.");
-}
-const css = fs.readFileSync(cssPath, "utf8");
-if (!css.includes("--topogram-design-density: compact;") || !css.includes("--topogram-design-color-primary: work_primary;")) {
-  throw new Error("Expected generated Todo app CSS to include Topogram design-intent variables.");
+const webRoots = [
+  path.join(starterDir, "app", "apps", "web", "app_sveltekit"),
+  path.join(starterDir, "app", "apps", "web", "app_react")
+];
+for (const webRoot of webRoots) {
+  const coveragePath = path.join(webRoot, "src", "lib", "topogram", "generation-coverage.json");
+  const cssPath = path.join(webRoot, "src", "app.css");
+  const coverage = JSON.parse(fs.readFileSync(coveragePath, "utf8"));
+  if (coverage.design_intent?.status !== "mapped") {
+    throw new Error(`Expected generated Todo app coverage to map design intent for ${webRoot}.`);
+  }
+  if (coverage.design_intent.tokens?.density !== "compact") {
+    throw new Error(`Expected generated Todo app to preserve compact design density for ${webRoot}.`);
+  }
+  if (coverage.summary?.widget_usages !== 4 || coverage.summary?.rendered_widget_usages !== 4) {
+    throw new Error(`Expected generated Todo app to render all four widget usages for ${webRoot}.`);
+  }
+  const statuses = coverage.screens.flatMap((screen) => screen.widget_usages || []).map((usage) => usage.status);
+  if (JSON.stringify(statuses) !== JSON.stringify(["rendered", "rendered", "rendered", "rendered"])) {
+    throw new Error(`Expected generated Todo app widget statuses to be rendered for ${webRoot}.`);
+  }
+  const css = fs.readFileSync(cssPath, "utf8");
+  if (!css.includes("--topogram-design-density: compact;") || !css.includes("--topogram-design-color-primary: work_primary;")) {
+    throw new Error(`Expected generated Todo app CSS to include Topogram design-intent variables for ${webRoot}.`);
+  }
 }
 NODE
 

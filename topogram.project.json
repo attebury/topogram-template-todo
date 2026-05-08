@@ -38,6 +38,18 @@
         "uses_api": "app_api"
       },
       {
+        "id": "app_react",
+        "projection": "proj_web_surface_react",
+        "generator": {
+          "id": "@topogram/generator-react-web",
+          "version": "1",
+          "package": "@topogram/generator-react-web"
+        },
+        "port": 5174,
+        "kind": "web_surface",
+        "uses_api": "app_api"
+      },
+      {
         "id": "app_postgres",
         "projection": "proj_db_postgres",
         "generator": {
