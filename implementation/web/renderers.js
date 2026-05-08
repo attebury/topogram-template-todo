@@ -75,12 +75,12 @@ export function renderTodoTaskRoutes({
   const editTaskVisibility = taskDetail.visibility?.find((entry) => entry.capability?.id === "cap_update_task") || null;
   const completeTaskVisibility = taskDetail.visibility?.find((entry) => entry.capability?.id === "cap_complete_task") || null;
   const deleteTaskVisibility = taskDetail.visibility?.find((entry) => entry.capability?.id === "cap_delete_task") || null;
-  const taskListHeroComponents = renderSvelteKitWidgetRegion(taskList, "hero", {
+  const taskListHeroWidgets = renderSvelteKitWidgetRegion(taskList, "hero", {
     widgetContracts: contract.widgets,
     itemsExpression: "data.result.items",
     useTypescript
   });
-  const taskListResultsComponents = renderSvelteKitWidgetRegion(taskList, "results", {
+  const taskListResultsWidgets = renderSvelteKitWidgetRegion(taskList, "results", {
     widgetContracts: contract.widgets,
     itemsExpression: "data.result.items",
     useTypescript
@@ -187,7 +187,7 @@ export const load: PageLoad = async ({ fetch, url }) => {
         </div>
         <a class="button-link" href="/tasks/new">Create Task</a>
       </div>
-${taskListHeroComponents ? `\n      ${taskListHeroComponents}\n` : ""}
+${taskListHeroWidgets ? `\n      ${taskListHeroWidgets}\n` : ""}
 
       <form class="filters" method="GET">
         <label>
@@ -239,7 +239,7 @@ ${taskListHeroComponents ? `\n      ${taskListHeroComponents}\n` : ""}
         </div>
       {:else}
         <p class="muted">Showing {data.result.items.length} task{data.result.items.length === 1 ? "" : "s"}.</p>
-        ${taskListResultsComponents || taskListDefaultResults}
+        ${taskListResultsWidgets || taskListDefaultResults}
         {#if nextHref}
           <p><a class="button-link secondary" href={nextHref}>Next Page</a></p>
         {/if}
