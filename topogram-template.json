@@ -1,6 +1,6 @@
 {
   "id": "@topogram/template-todo",
-  "version": "0.1.36",
+  "version": "0.1.37",
   "kind": "starter",
   "description": "Todo/task management starter with generated web, API, and Postgres runtimes.",
   "topogramVersion": "0.1",
