@@ -151,7 +151,7 @@ node --input-type=module - "$STARTER_DIR/package.json" <<'NODE'
 import fs from "node:fs";
 const packagePath = process.argv[2];
 const pkg = JSON.parse(fs.readFileSync(packagePath, "utf8"));
-if (pkg.scripts?.["widget:behavior:query"] !== "topogram query widget-behavior ./topogram --projection proj_web_surface --json") {
+if (pkg.scripts?.["widget:behavior:query"] !== "topogram query widget-behavior ./topo --projection proj_web_surface --json") {
   throw new Error("Expected Todo starter package.json to expose widget:behavior:query.");
 }
 if (pkg.scripts?.["query:show"] !== "topogram query show") {

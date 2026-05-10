@@ -1,6 +1,6 @@
 {
   "name": "@topogram/template-todo",
-  "version": "0.1.37",
+  "version": "0.1.38",
   "description": "Topogram template pack for starting a generated Todo app.",
   "private": false,
   "license": "UNLICENSED",
@@ -11,7 +11,7 @@
   },
   "files": [
     "topogram-template.json",
-    "topogram",
+    "topo",
     "topogram.project.json",
     "implementation",
     "README.md"
@@ -27,7 +27,7 @@
     "release:check": "bash ./scripts/check-release-version.sh"
   },
   "devDependencies": {
-    "@topogram/cli": "^0.3.65",
+    "@topogram/cli": "^0.3.67",
     "@topogram/generator-hono-api": "0.2.9",
     "@topogram/generator-postgres-db": "0.1.7",
     "@topogram/generator-react-web": "^0.1.8",

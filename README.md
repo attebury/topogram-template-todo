@@ -80,7 +80,7 @@ After publishing a template version, update the catalog from this repo instead
 of hand-editing the `todo` entry:
 
 ```bash
-npm run catalog:update -- ../topograms/topograms.catalog.json
+npm run catalog:update -- ../topos/topograms.catalog.json
 ```
 
 The script verifies `package.json` and `topogram-template.json` agree, then
@@ -89,5 +89,5 @@ updates only the catalog entry with `id: "todo"` and package
 the catalog is already aligned:
 
 ```bash
-npm run catalog:update -- ../topograms/topograms.catalog.json --check
+npm run catalog:update -- ../topos/topograms.catalog.json --check
 ```
