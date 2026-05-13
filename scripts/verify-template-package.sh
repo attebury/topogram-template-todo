@@ -138,7 +138,7 @@ echo "Checking template conformance..."
 echo "Creating a starter from the packed template..."
 (
   cd "$CONSUMER_DIR"
-  TOPOGRAM_CLI_PACKAGE_SPEC="$STARTER_CLI_PACKAGE_SPEC" "$TOPOGRAM_BIN" new ./starter --template "$TEMPLATE_TARBALL"
+  TOPOGRAM_CLI_PACKAGE_SPEC="$STARTER_CLI_PACKAGE_SPEC" "$TOPOGRAM_BIN" copy "$TEMPLATE_TARBALL" ./starter
 )
 
 STARTER_DIR="$CONSUMER_DIR/starter"

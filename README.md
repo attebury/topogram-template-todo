@@ -9,7 +9,7 @@ npm install --save-dev @topogram/cli
 npx topogram doctor
 npx topogram template list
 npx topogram catalog show todo
-npx topogram new ./todo-app --template todo
+npx topogram copy todo ./todo-app
 cd ./todo-app
 npm install
 npm run doctor
@@ -22,7 +22,7 @@ The public start path is the `todo` catalog alias. The catalog resolves that
 alias to the current `@topogram/template-todo` package version.
 
 This template includes executable implementation provider JavaScript under `implementation/`.
-`topogram new` copies that code but does not execute it; `topogram generate`
+`topogram copy` copies that code but does not execute it; `topogram generate`
 may load it later after local trust metadata is recorded. Use it as trusted code
 from the `@topogram` package scope.
 
@@ -52,7 +52,7 @@ See [`CONSUMER_PROOF.md`](./CONSUMER_PROOF.md) for the verification standard
 this repo must keep before publishing the template package.
 
 This runs reusable template conformance with `topogram template check`, packs
-the template, creates a disposable starter with `topogram new --template
+the template, creates a disposable starter with `topogram copy <template> <target>` using
 <tarball>`, installs the starter, runs `npm run doctor`, runs `npm run source:status`,
 runs `npm run template:detach:dry-run`, runs `npm run check`, runs `npm run generate`,
 runs the generated app compile check, and verifies the generated app sentinel. This package-level smoke

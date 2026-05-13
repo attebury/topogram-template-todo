@@ -15,7 +15,7 @@ The check must:
 - install the Topogram CLI package pinned in `topogram-cli.version`;
 - pack `@topogram/template-todo`;
 - run `topogram template check <tarball>`;
-- create a disposable starter with `topogram new --template <tarball>`;
+- create a disposable starter with `topogram copy <tarball> <target>`;
 - install starter dependencies;
 - run `doctor`, query/source/template trust commands, `check`, and
   widget-behavior proof;
