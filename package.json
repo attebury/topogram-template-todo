@@ -1,6 +1,6 @@
 {
   "name": "@topogram/template-todo",
-  "version": "0.1.38",
+  "version": "0.1.39",
   "description": "Topogram template pack for starting a generated Todo app.",
   "private": false,
   "license": "UNLICENSED",
